@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20231004-04
+      author: Aykhan Namazov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: val_curs_pk
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueDate: current_timestamp
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: date
+                  type: date
+                  constraints:
+                    nullable: false
+            tableName: val_curs

@@ -1,0 +1,15 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml
+    enabled: true
+  profiles:
+    active: local
+
+
+cbar:
+  url: https://www.cbar.az/currencies
+
+
+

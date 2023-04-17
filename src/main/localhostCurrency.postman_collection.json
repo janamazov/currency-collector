@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "a7b54499-ba42-4233-b3f8-f2b874306aca",
+		"name": "localhostCurrency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22672356"
+	},
+	"item": [
+		{
+			"name": "CbarSync",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "YWRtaW46MTIzNDU=",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/cbar?date=2022-11-14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"cbar"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2022-11-14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByDate",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNDU=",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/currencies/get-by-date?date=2022-11-11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"currencies",
+						"get-by-date"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2022-11-11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByCode",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getByDateAndCode",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "12345",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/api/v1/currencies/get-date-and-currency?date=2022-11-11&code=NZD",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"v1",
+						"currencies",
+						"get-date-and-currency"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2022-11-11"
+						},
+						{
+							"key": "code",
+							"value": "NZD"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

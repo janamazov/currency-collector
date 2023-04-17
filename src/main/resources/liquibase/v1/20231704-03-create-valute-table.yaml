@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20231004-06
+      author: Aykhan Namazov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: valute_pk
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueDate: current_timestamp
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: val_type_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_val_type_id
+                    references: val_type(id)
+              - column:
+                  name: code
+                  type: varchar(100)
+              - column:
+                  name: nominal
+                  type: varchar(100)
+              - column:
+                  name: name
+                  type: varchar(100)
+              - column:
+                  name: value
+                  type: number
+            tableName: valute

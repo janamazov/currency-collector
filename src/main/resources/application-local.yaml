@@ -1,0 +1,22 @@
+server:
+  port: 8082
+  servlet:
+    application-display-name: currency-report
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/currency?stringtype=unspecified
+    username: postgres
+    password: password
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+
+
+#    url: jdbc:postgresql://localhost:15432/currency?stringtype=unspecified
+#    username: admin
+#    password: admin@123

@@ -18,7 +18,7 @@ username: admin<br>
 password: 12345
 
 
-# Authonticated users via Basic Auth can:
+# Authenticated users via Basic Auth can:
 *Get Rates against AZN for specific Date and Currency<br>
 *List Rates against AZN for specific Currency<br>
 *List Rates against AZN for specific Date<br>

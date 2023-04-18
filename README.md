@@ -13,6 +13,10 @@ This API for the collection and search of official exchange rates of the Azerbai
 Then run application<br>
 Application runs on port 8082 port
 
+# Default static token
+x-authorization-token<br>
+rFcOirGU3v9n4643q4Xu952qyA5JZtZsR8ybPj6zuA
+
 # Default user for Basic Auth
 username: admin<br>
 password: 12345
@@ -23,4 +27,5 @@ password: 12345
 *List Rates against AZN for specific Currency<br>
 *List Rates against AZN for specific Date<br>
 
+# Another APIs requires only static token 
 

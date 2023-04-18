@@ -3,48 +3,60 @@ package az.digitalumbrella.currencycollector.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private final AuthenticationFilter authenticationFilter;
-
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable();
+    private static final String CBAR_API_URL = "/api/v1/cbar/**";
+    private static final String ROLE_ADMIN = "";
+
+    @Bean
+    public SecurityFilterChain tokenConfigure(HttpSecurity http) throws Exception {
+
         http
-                .authorizeRequests()
-                .antMatchers("/api/v1/cbar/**")
-                .authenticated()
-                .antMatchers("/api/v1/currencies**")
-                .hasAnyRole("ADMIN");
-        http.httpBasic().disable();
-        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        super.configure(http);
+                .csrf().disable()
+                .cors().disable()
+                .authorizeHttpRequests(authz -> authz
+                        .antMatchers("/api/v1/currencies/**").hasRole(ROLE_ADMIN)
+                        .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        return http.build();
+
+
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin")
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+                .username("admin")
                 .password(bCryptPasswordEncoder().encode("12345"))
-                .roles("ADMIN");
+                .roles(ROLE_ADMIN)
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
     }
 }

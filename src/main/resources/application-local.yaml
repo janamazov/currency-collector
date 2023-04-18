@@ -15,8 +15,10 @@ spring:
       hibernate:
         hbm2ddl:
           auto: none
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 
-#    url: jdbc:postgresql://localhost:15432/currency?stringtype=unspecified
-#    username: admin
-#    password: admin@123
+
+

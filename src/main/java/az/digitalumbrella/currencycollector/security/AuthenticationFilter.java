@@ -19,10 +19,13 @@ import java.util.ArrayList;
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
 
+    public static final String TOKEN = "rFcOirGU3v9n4643q4Xu952qyA5JZtZsR8ybPj6zuA";
+    public static final String TOKEN_HEADER = "x-authorization-token";
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws   IOException, ServletException {
-        String authToken = request.getHeader("x-authorization-token");
-        if (authToken != null && authToken.equals("rFcOirGU3v9n4643q4Xu952qyA5JZtZsR8ybPj6zuA")) {
+        String authToken = request.getHeader(TOKEN_HEADER);
+        if (authToken != null && authToken.equals(TOKEN)) {
              Authentication authentication = new UsernamePasswordAuthenticationToken("admin", null, new ArrayList<>());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

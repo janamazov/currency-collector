@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = ValType.TABLE_NAME)
 public class ValType  {
 
-    public static final String TABLE_NAME = "val_types";
+    public static final String TABLE_NAME = "val_type";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

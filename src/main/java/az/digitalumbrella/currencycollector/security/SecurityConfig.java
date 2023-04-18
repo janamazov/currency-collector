@@ -10,12 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final AuthenticationFilter authenticationFilter;
+
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -24,9 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable();
-        http.authorizeRequests().antMatchers("/api/v1/cbar/**").permitAll()
-                .antMatchers("/api/v1/currencies**").hasAnyRole("ADMIN");
+        http
+                .authorizeRequests()
+                .antMatchers("/api/v1/cbar/**")
+                .authenticated()
+                .antMatchers("/api/v1/currencies**")
+                .hasAnyRole("ADMIN");
         http.httpBasic().disable();
+        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         super.configure(http);
     }

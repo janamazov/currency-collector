@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AlreadyExistException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public final ExceptionResponse handle(AlreadyExistException ex) {
         log.error("Resource already exist {}", ex.getMessage());
-        return new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        return new ExceptionResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -31,8 +31,6 @@ public class GlobalExceptionHandler {
     public final ExceptionResponse handle(MethodArgumentNotValidException ex) {
         return new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
-
-
 
 }
 

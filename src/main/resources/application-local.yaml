@@ -6,15 +6,15 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/currency?stringtype=unspecified
-    username: postgres
-    password: password
+    url: jdbc:postgresql://localhost:15432/currency?stringtype=unspecified
+    username: admin
+    password: admin@123
   jpa:
     show-sql: false
     properties:
       hibernate:
         hbm2ddl:
-          auto: update
+          auto: none
 
 
 #    url: jdbc:postgresql://localhost:15432/currency?stringtype=unspecified

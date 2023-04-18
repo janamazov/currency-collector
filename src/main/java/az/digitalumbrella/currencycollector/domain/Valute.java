@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Table(name = Valute.TABLE_NAME)
 public class Valute  {
 
-    public static final String TABLE_NAME = "valutes";
+    public static final String TABLE_NAME = "valute";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

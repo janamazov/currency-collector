@@ -29,6 +29,7 @@ public class CurrencyController {
              @RequestParam("code") Currency  currencyCode) {
         return currencyService.getByDateAndCurrency(date, currencyCode);
     }
+
     @GetMapping("/get-by-date")
     public List<ValCursResponse> getAllByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return currencyService.getAllByDate(date);

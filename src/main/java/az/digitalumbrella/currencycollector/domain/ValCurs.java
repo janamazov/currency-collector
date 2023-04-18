@@ -32,5 +32,4 @@ public class ValCurs  {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "valCurs")
     private List<ValType> valTypes;
 
-
 }

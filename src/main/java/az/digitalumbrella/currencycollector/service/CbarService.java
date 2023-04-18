@@ -6,16 +6,15 @@ import az.digitalumbrella.currencycollector.domain.ValCurs;
 import az.digitalumbrella.currencycollector.exception.AlreadyExistException;
 import az.digitalumbrella.currencycollector.exception.NotFoundException;
 import az.digitalumbrella.currencycollector.repository.ValCursRepository;
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.net.URI;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 
 @Slf4j
@@ -30,8 +29,7 @@ public class CbarService {
     @Value("${cbar.url}")
     private String currencyURI;
 
-
-    public ResponseEntity<?> syncCurrencyData(LocalDate date) {
+    public String syncCurrencyData(LocalDate date) {
         if (valCursRepository.existsByDate(date)) throw new AlreadyExistException();
 
         ValCurs valCurs = mapper.map(getCurrencyData(date), ValCurs.class);
@@ -41,7 +39,12 @@ public class CbarService {
             valType.getValutes().forEach(v -> v.setValType(valType));
         });
         valCursRepository.save(valCurs);
-        return ResponseEntity.ok().body("Succesfully synced");
+        return "Succesfully synced";
+    }
+
+    public void deleteByDate(LocalDate date) {
+        if (!valCursRepository.existsByDate(date)) throw new NotFoundException();
+        valCursRepository.deleteByDate(date);
     }
 
     private ValCursDTO getCurrencyData(LocalDate date) {
@@ -51,14 +54,7 @@ public class CbarService {
         return body;
     }
 
-    public ResponseEntity<String> deleteByDate(LocalDate date) {
-        if (!valCursRepository.existsByDate(date)) throw new NotFoundException();
-        valCursRepository.deleteByDate(date);
-        return ResponseEntity.ok().body("Succesfully deleted");
-    }
     private String getURI(LocalDate date) {
         return String.format("%s/%s.%s", currencyURI, date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), "xml");
     }
-
-
 }

@@ -1,14 +1,13 @@
 package az.digitalumbrella.currencycollector.client.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
-
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -17,9 +16,9 @@ import java.util.List;
 public class ValTypeDTO {
 
     @XmlElement(name = "Valute")
-     List<ValuteDTO> valutes;
+    List<ValuteDTO> valutes;
 
     @XmlAttribute(name = "Type")
-     String type;
+    String type;
 
 }
